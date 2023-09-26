@@ -1,3 +1,8 @@
+__author__ = "Christopher Tomkins-Tinch, Johannes Köster"
+__copyright__ = "Copyright 2023, Christopher Tomkins-Tinch, Johannes Köster"
+__email__ = "johannes.koester@uni-due.de"
+__license__ = "MIT"
+
 from typing import Optional, Type
 from snakemake_interface_storage_plugins.tests import TestStorageBase
 from snakemake_interface_storage_plugins.storage_provider import StorageProviderBase

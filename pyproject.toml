@@ -2,7 +2,10 @@
 name = "snakemake-storage-plugin-http"
 version = "0.1.0"
 description = "Snakemake storage plugin for donwloading input files from HTTP(s)."
-authors = ["Johannes Koester <johannes.koester@uni-due.de>"]
+authors = [
+    "Johannes Koester <johannes.koester@uni-due.de>",
+    "Christopher Tomkins-Tinch <tomkinsc@broadinstitute.org>"
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
