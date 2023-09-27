@@ -10,7 +10,7 @@ from functools import partial
 import os
 import re
 import shutil
-from typing import Optional, Sequence
+from typing import Any, Iterable, Optional
 import requests
 from requests.auth import AuthBase, HTTPBasicAuth, HTTPDigestAuth
 from requests_oauthlib import OAuth1
@@ -18,8 +18,8 @@ from urllib.parse import urlparse
 
 from snakemake_interface_common.logging import get_logger
 from snakemake_interface_storage_plugins.settings import StorageProviderSettingsBase
-from snakemake_interface_storage_plugins.storage_provider import StorageProviderBase
-from snakemake_interface_storage_plugins.storage_object import StorageObjectBase
+from snakemake_interface_storage_plugins.storage_provider import StorageProviderBase, StorageQueryValidationResult
+from snakemake_interface_storage_plugins.storage_object import StorageObjectRead
 from snakemake_interface_storage_plugins.io import IOCacheStorageInterface, Mtime
 from snakemake_interface_common.exceptions import WorkflowError
 
@@ -81,27 +81,35 @@ class StorageProviderSettings(StorageProviderSettingsBase):
 # Required:
 # Implementation of your storage provider
 class StorageProvider(StorageProviderBase):
-    pass
+    @classmethod
+    def is_valid_query(cls, query: str) -> StorageQueryValidationResult:
+        try:
+            parsed = urlparse(query)
+        except Exception as e:
+            return StorageQueryValidationResult(
+                query=query,
+                valid=False,
+                reason="cannot be parsed as URL",
+            )
+        if not (parsed.scheme == "http" or parsed.scheme == "https"):
+            return StorageQueryValidationResult(
+                query=query,
+                valid=False,
+                reason="scheme must be http or https",
+            )
+        return StorageQueryValidationResult(
+            query=query,
+            valid=True,
+        )
+
+    def list_objects(self, query: Any) -> Iterable[str]:
+        raise NotImplementedError()
 
 
 # Required:
 # Implementation of storage object (also check out
 # snakemake_interface_storage_plugins.storage_object for more base class options)
-class StorageObject(StorageObjectBase):
-    def validate_query(self):
-        try:
-            parsed = urlparse(self.query)
-        except Exception as e:
-            raise WorkflowError(
-                f"Invalid URL: {self.query}.",
-                e
-            )
-        if not (parsed.scheme == "http" or parsed.scheme == "https"):
-            raise WorkflowError(
-                f"Invalid URL: {self.query} with scheme {parsed.scheme}. Only http(s) is supported by http storage "
-                "plugin."
-            )
-
+class StorageObject(StorageObjectRead):
     def local_suffix(self):
         parsed = urlparse(self.query)
         return f"{parsed.netloc}{parsed.path}"
@@ -114,8 +122,8 @@ class StorageObject(StorageObjectBase):
         name = self.local_path()
         with self.httpr(verb="HEAD") as httpr:
             res = ResponseHandler(httpr)
-            cache.mtime[name] = Mtime(remote=res.mtime())
-            cache.exists_remote[name] = res.exists()
+            cache.mtime[name] = Mtime(storage=res.mtime())
+            cache.exists_in_storage[name] = res.exists()
             cache.size[name] = res.size()
 
     def get_inventory_parent(self) -> Optional[str]:
@@ -161,15 +169,6 @@ class StorageObject(StorageObjectBase):
             with open(self.local_path(), "wb") as f:
                 shutil.copyfileobj(httpr.raw, f)
 
-    def store_object(self):
-        raise NotImplementedError()
-
-    def list_all_below_ancestor(self) -> Sequence[str]:
-        raise NotImplementedError()
-
-    def remove(self):
-        raise NotImplementedError()
-
     @contextmanager  # makes this a context manager. after 'yield' is __exit__()
     def httpr(self, verb="GET", stream=False):
         r = None
@@ -201,8 +200,9 @@ class ResponseHandler:
         if self.response.status_code in range(300, 308):
             raise WorkflowError(
                 "The file specified appears to have been moved (HTTP "
-                f"{self.response.status_code}), check the URL or try adding "
-                "'allow_redirects=True' to the remote() file object: "
+                f"{self.response.status_code}), check the URL or enable "
+                "redirects in the http storage provider "
+                "(--storage-http-allow-redirects true): "
                 f"{self.response.url}"
             )
         return self.response.status_code == requests.codes.ok
