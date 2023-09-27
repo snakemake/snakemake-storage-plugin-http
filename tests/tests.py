@@ -16,7 +16,7 @@ class TestStorageNoSettings(TestStorageBase):
 
     def get_query(self) -> str:
         return "https://www.google.com"
-    
+
     def get_storage_provider_cls(self) -> Type[StorageProviderBase]:
         return StorageProvider
 

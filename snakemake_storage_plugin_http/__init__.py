@@ -18,7 +18,10 @@ from urllib.parse import urlparse
 
 from snakemake_interface_common.logging import get_logger
 from snakemake_interface_storage_plugins.settings import StorageProviderSettingsBase
-from snakemake_interface_storage_plugins.storage_provider import StorageProviderBase, StorageQueryValidationResult
+from snakemake_interface_storage_plugins.storage_provider import (
+    StorageProviderBase,
+    StorageQueryValidationResult,
+)
 from snakemake_interface_storage_plugins.storage_object import StorageObjectRead
 from snakemake_interface_storage_plugins.io import IOCacheStorageInterface, Mtime
 from snakemake_interface_common.exceptions import WorkflowError
@@ -89,7 +92,7 @@ class StorageProvider(StorageProviderBase):
             return StorageQueryValidationResult(
                 query=query,
                 valid=False,
-                reason="cannot be parsed as URL",
+                reason=f"cannot be parsed as URL ({e})",
             )
         if not (parsed.scheme == "http" or parsed.scheme == "https"):
             return StorageQueryValidationResult(
