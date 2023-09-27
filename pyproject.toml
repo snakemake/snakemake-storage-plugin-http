@@ -16,7 +16,7 @@ snakemake-interface-common = "^1.10.0"
 snakemake-interface-storage-plugins = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
-black = "^22.1.0"
+black = "^23.9.1"
 coverage = {extras = ["toml"], version = "^6.3.1"}
 flake8 = "^4.0.1"
 flake8-bugbear = "^22.1.11"
