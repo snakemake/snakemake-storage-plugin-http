@@ -142,7 +142,7 @@ class StorageObject(StorageObjectRead):
         with self.httpr(verb="HEAD") as httpr:
             return ResponseHandler(httpr).exists()
 
-    def mtime(self) -> Mtime:
+    def mtime(self) -> float:
         with self.httpr(verb="HEAD") as httpr:
             return ResponseHandler(httpr).mtime()
 
