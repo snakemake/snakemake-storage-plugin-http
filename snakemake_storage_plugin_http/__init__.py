@@ -21,6 +21,7 @@ from snakemake_interface_storage_plugins.settings import StorageProviderSettings
 from snakemake_interface_storage_plugins.storage_provider import (
     StorageProviderBase,
     StorageQueryValidationResult,
+    ExampleQuery,
 )
 from snakemake_interface_storage_plugins.storage_object import StorageObjectRead
 from snakemake_interface_storage_plugins.io import IOCacheStorageInterface, Mtime
@@ -94,6 +95,14 @@ class StorageProvider(StorageProviderBase):
         """
         parsed = urlparse(query)
         return parsed.netloc
+
+    @classmethod
+    def example_query(cls) -> ExampleQuery:
+        """Return an example query with description for this storage provider."""
+        return ExampleQuery(
+            query="https://example.com/file.txt",
+            description="A file URL",
+        )
 
     def default_max_requests_per_second(self) -> float:
         """Return the default maximum number of requests per second for this storage
