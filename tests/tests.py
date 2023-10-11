@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2023, Christopher Tomkins-Tinch, Johannes Köster"
 __email__ = "johannes.koester@uni-due.de"
 __license__ = "MIT"
 
-from typing import Optional, Type
+from typing import List, Optional, Type
 from snakemake_interface_storage_plugins.tests import TestStorageBase
 from snakemake_interface_storage_plugins.storage_provider import StorageProviderBase
 from snakemake_interface_storage_plugins.settings import StorageProviderSettingsBase
@@ -25,3 +25,6 @@ class TestStorageNoSettings(TestStorageBase):
 
     def get_storage_provider_settings(self) -> Optional[StorageProviderSettingsBase]:
         return StorageProviderSettings()
+
+    def get_example_args(self) -> List[str]:
+        return []
