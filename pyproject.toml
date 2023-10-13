@@ -7,6 +7,8 @@ authors = [
     "Christopher Tomkins-Tinch <tomkinsc@broadinstitute.org>"
 ]
 readme = "README.md"
+homepage = "https://github.com/snakemake/snakemake-storage-plugin-http"
+
 
 [tool.poetry.dependencies]
 python = "^3.9"
