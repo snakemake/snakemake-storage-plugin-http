@@ -14,10 +14,10 @@ class TestStorageNoSettings(TestStorageBase):
     __test__ = True
     retrieve_only = True
 
-    def get_query(self) -> str:
+    def get_query(self, tmp_path) -> str:
         return "https://www.google.com"
 
-    def get_query_not_existing(self) -> str:
+    def get_query_not_existing(self, tmp_path) -> str:
         return "https://www.google.com/this/does/not/exist"
 
     def get_storage_provider_cls(self) -> Type[StorageProviderBase]:
