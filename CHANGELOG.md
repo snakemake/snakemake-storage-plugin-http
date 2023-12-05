@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.2](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.1...v0.2.2) (2023-12-05)
+
+
+### Bug Fixes
+
+* adapt to changes in test suite ([9b4ac9a](https://github.com/snakemake/snakemake-storage-plugin-http/commit/9b4ac9a7fdfa08292d4d0421c228c87525e56ee3))
+* adapt to interface changes ([7c0a6cd](https://github.com/snakemake/snakemake-storage-plugin-http/commit/7c0a6cdaf1368a4faa4339ce97a52f2821e2165e))
+
+
+### Performance Improvements
+
+* update to latest interface ([01b697f](https://github.com/snakemake/snakemake-storage-plugin-http/commit/01b697f3886b25ca9f6b4fe7d786720e5edbde2d))
+
 ## [0.2.1](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.0...v0.2.1) (2023-10-13)
 
 
