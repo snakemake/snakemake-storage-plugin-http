@@ -10,7 +10,7 @@ from functools import partial
 import os
 import re
 import shutil
-from typing import Any, Iterable, Optional
+from typing import Any, Iterable, List, Optional
 import requests
 from requests.auth import AuthBase, HTTPBasicAuth, HTTPDigestAuth
 from requests_oauthlib import OAuth1
@@ -22,6 +22,7 @@ from snakemake_interface_storage_plugins.storage_provider import (
     StorageProviderBase,
     StorageQueryValidationResult,
     ExampleQuery,
+    QueryType,
 )
 from snakemake_interface_storage_plugins.storage_object import StorageObjectRead
 from snakemake_interface_storage_plugins.io import IOCacheStorageInterface, Mtime
@@ -97,12 +98,15 @@ class StorageProvider(StorageProviderBase):
         return parsed.netloc
 
     @classmethod
-    def example_query(cls) -> ExampleQuery:
+    def example_queries(cls) -> List[ExampleQuery]:
         """Return an example query with description for this storage provider."""
-        return ExampleQuery(
-            query="https://example.com/file.txt",
-            description="A file URL",
-        )
+        return [
+            ExampleQuery(
+                query="https://example.com/file.txt",
+                description="A file URL",
+                type=QueryType.INPUT,
+            )
+        ]
 
     def default_max_requests_per_second(self) -> float:
         """Return the default maximum number of requests per second for this storage
