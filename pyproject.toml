@@ -3,11 +3,14 @@ name = "snakemake-storage-plugin-http"
 version = "0.2.1"
 description = "Snakemake storage plugin for donwloading input files from HTTP(s)."
 authors = [
+    "Christopher Tomkins-Tinch <tomkinsc@broadinstitute.org>",
     "Johannes Koester <johannes.koester@uni-due.de>",
-    "Christopher Tomkins-Tinch <tomkinsc@broadinstitute.org>"
 ]
 readme = "README.md"
-homepage = "https://github.com/snakemake/snakemake-storage-plugin-http"
+repository = "https://github.com/snakemake/snakemake-storage-plugin-http"
+documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/http.html"
+license = "MIT"
+keywords = ["snakemake", "plugin", "storage", "http", "https"]
 
 
 [tool.poetry.dependencies]
