@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.3](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.2...v0.2.3) (2023-12-08)
+
+
+### Documentation
+
+* update metadata ([fb354db](https://github.com/snakemake/snakemake-storage-plugin-http/commit/fb354dbd5f4601b47a8e79467d7d6e4b92c6cac7))
+
 ## [0.2.2](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.1...v0.2.2) (2023-12-05)
 
 
