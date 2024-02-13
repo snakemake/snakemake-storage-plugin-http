@@ -25,7 +25,7 @@ black = "^22.1.0"
 coverage = {extras = ["toml"], version = "^7.3.2"}
 flake8 = "^4.0.1"
 flake8-bugbear = "^22.1.11"
-pytest = "^7.0"
+pytest = "^8.0"
 snakemake = {git="https://github.com/snakemake/snakemake.git"}
 
 [build-system]
