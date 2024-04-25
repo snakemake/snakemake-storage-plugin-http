@@ -82,6 +82,12 @@ class StorageProviderSettings(StorageProviderSettingsBase):
             "help": "Allow redirects when retrieving files.",
         },
     )
+    supports_http_head: Optional[bool] = field(
+        default=True,
+        metadata={
+            "help": "Whether the storage provider supports HTTP HEAD requests.",
+        },
+    )
 
 
 # Required:
@@ -213,7 +219,10 @@ class StorageObject(StorageObjectRead):
             if verb.upper() == "GET":
                 request = partial(requests.get, stream=stream)
             if verb.upper() == "HEAD":
-                request = requests.head
+                if self.provider.settings.supports_http_head:
+                    request = requests.head
+                else:
+                    request = requests.get
 
             r = request(
                 self.query,
