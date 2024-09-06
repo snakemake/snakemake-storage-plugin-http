@@ -219,7 +219,7 @@ class StorageObject(StorageObjectRead):
             if verb.upper() == "GET":
                 request = partial(requests.get, stream=stream)
             if verb.upper() == "HEAD":
-                if self.provider.settings.supports_http_head:
+                if self.provider.settings.supports_head:
                     request = requests.head
                 else:
                     request = requests.get
