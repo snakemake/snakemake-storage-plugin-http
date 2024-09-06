@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.3...v0.3.0) (2024-09-06)
+
+
+### Features
+
+* Add flag to disable the use of HTTP HEAD verb ([#23](https://github.com/snakemake/snakemake-storage-plugin-http/issues/23)) ([41e3eb5](https://github.com/snakemake/snakemake-storage-plugin-http/commit/41e3eb538848769bf6920014f3480d365ece4d01))
+
 ## [0.2.3](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.2...v0.2.3) (2023-12-08)
 
 
