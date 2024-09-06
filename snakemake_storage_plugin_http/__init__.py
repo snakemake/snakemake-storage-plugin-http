@@ -82,7 +82,7 @@ class StorageProviderSettings(StorageProviderSettingsBase):
             "help": "Allow redirects when retrieving files.",
         },
     )
-    supports_http_head: Optional[bool] = field(
+    supports_head: Optional[bool] = field(
         default=True,
         metadata={
             "help": "Whether the storage provider supports HTTP HEAD requests.",
