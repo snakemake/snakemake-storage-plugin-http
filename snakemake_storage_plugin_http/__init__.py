@@ -191,21 +191,9 @@ class StorageObject(StorageObjectRead):
 
     def retrieve_object(self):
         with self.httpr(stream=True) as httpr:
-            # Find out if the source file is gzip compressed in order to keep
-            # compression intact after the download.
-            # Per default requests decompresses .gz files.
-            # More details can be found here:
-            # https://stackoverflow.com/questions/25749345/how-to-download-gz-files-with-requests-in-python-without-decoding-it?noredirect=1&lq=1  # noqa E501
-            # Since data transferred with HTTP compression need to be decompressed
-            # automatically, check the header and decode if the content is encoded.
-            if (
-                not self.query.endswith(".gz")
-                and httpr.headers.get("Content-Encoding") == "gzip"
-            ):
-                # Decode non-gzipped sourcefiles automatically.
-                # This is needed to decompress uncompressed files that are compressed
-                # for the transfer by HTTP compression.
-                httpr.raw.decode_content = True
+            # Make sure that transparently compressed data is decompressed correctly,
+            # refer also to https://httpwg.org/specs/rfc9110.html#field.content-encoding
+            httpr.raw.decode_content = bool(httpr.headers.get("Content-Encoding"))
             # if the destination path does not exist
             os.makedirs(os.path.dirname(self.local_path()), exist_ok=True)
             with open(self.local_path(), "wb") as f:
