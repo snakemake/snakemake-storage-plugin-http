@@ -270,6 +270,13 @@ class ResponseHandler:
         return epochTime
 
     def size(self):
+        # Ranged responses: "bytes 0-0/12345".
+        content_range = get_header_item(self.response, "content-range", default=None)
+        if content_range is not None and "/" in content_range:
+            total_size = content_range.rsplit("/", 1)[-1]
+            if total_size.isdigit():
+                return int(total_size)
+
         # Standard HTTP object size metadata.
         content_length = get_header_item(self.response, "content-length", default=None)
         if content_length is not None:
@@ -277,13 +284,6 @@ class ResponseHandler:
                 return int(content_length)
             except ValueError:
                 pass
-
-        # Fallback for ranged responses: "bytes 0-0/12345".
-        content_range = get_header_item(self.response, "content-range", default=None)
-        if content_range is not None and "/" in content_range:
-            total_size = content_range.rsplit("/", 1)[-1]
-            if total_size.isdigit():
-                return int(total_size)
 
         # Endpoints returning non-standard header
         content_size = int(get_header_item(self.response, "content-size", default=0))
