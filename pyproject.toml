@@ -23,7 +23,7 @@ snakemake-interface-storage-plugins = "^4.1.0"
 [tool.poetry.dev-dependencies]
 black = "^24.1.1"
 coverage = {extras = ["toml"], version = "^7.3.2"}
-flake8 = "^4.0.1"
+flake8 = "^7.0.0"
 flake8-bugbear = "^22.1.11"
 pytest = "^7.0"
 snakemake = "^9.1.0"
