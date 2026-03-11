@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.1](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.3.0...v0.3.1) (2026-03-11)
+
+
+### Bug Fixes
+
+* decompress transparently compressed data ([#30](https://github.com/snakemake/snakemake-storage-plugin-http/issues/30)) ([6d77c92](https://github.com/snakemake/snakemake-storage-plugin-http/commit/6d77c92526f7d5c72fdc19aacf6c1c155c2eef62))
+* Use Content-length as the default header for remote file size ([#32](https://github.com/snakemake/snakemake-storage-plugin-http/issues/32)) ([0ee923d](https://github.com/snakemake/snakemake-storage-plugin-http/commit/0ee923d43b642699c4328b4acf920571c7baee9b))
+
 ## [0.3.0](https://github.com/snakemake/snakemake-storage-plugin-http/compare/v0.2.3...v0.3.0) (2025-03-24)
 
 
