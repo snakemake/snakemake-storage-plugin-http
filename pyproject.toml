@@ -24,7 +24,7 @@ snakemake-interface-storage-plugins = "^4.1.0"
 black = "^24.1.1"
 coverage = {extras = ["toml"], version = "^7.3.2"}
 flake8 = "^7.0.0"
-flake8-bugbear = "^22.1.11"
+flake8-bugbear = "^25.11.29"
 pytest = "^7.0"
 snakemake = "^9.1.0"
 
